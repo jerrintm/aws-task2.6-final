@@ -9,7 +9,7 @@ const app = express();
 const port = 5000;
 
 // AWS S3 configuration
-const S3_BUCKET = 'my-cool-local-bucket12'; // change this
+const S3_BUCKET = 'my-cool-task2.5'; // change this
 AWS.config.update({ region: 'us-east-1' }); // e.g., 'us-east-1'
 
 const s3 = new AWS.S3();
@@ -30,7 +30,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
   const params = {
     Bucket: S3_BUCKET,
-    Key: file.originalname,
+    Key: "original-images/" + file.originalname,
     Body: fileStream,
   };
 
@@ -46,6 +46,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.json({ message: 'File uploaded successfully', location: data.Location });
   });
 });
+
+app.get("/", (req, res) => res.status(200).send("yoyoyo"));
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
